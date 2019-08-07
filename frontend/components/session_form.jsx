@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 function SessionForm(props){
   const [username, setUsername] = useState("");
@@ -18,6 +18,16 @@ function SessionForm(props){
     setPassword(e.currentTarget.value);
   };
 
+  const renderErrors = () => {
+    return (
+      <ul>
+        {props.errors.map((error) => (
+          <p>{error}</p>
+        ))}
+      </ul>
+    )
+  }
+
   return(
     <div>
       <form onSubmit={handleSubmit}>
@@ -29,6 +39,8 @@ function SessionForm(props){
                onChange={updatePassword}/>
         <input type="submit" value={props.formType}/>
       </form>
+
+      <ul>{renderErrors()}</ul>
     </div>
   )
 }
