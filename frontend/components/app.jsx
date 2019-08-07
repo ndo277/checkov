@@ -1,12 +1,11 @@
 import React from 'react';
+import Splash from './splash';
 
 function App(){
   return(
-    <marquee>
-      <h1>
-        UNDER CONSTRUCTION
-      </h1>
-    </marquee>
+   <div>
+     <Splash />
+   </div>
   )
 }
 
