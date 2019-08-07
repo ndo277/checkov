@@ -6,7 +6,7 @@ import {signup, login, logout} from './actions/session_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
-  const store = configureStore();
+  let store = configureStore();
 
   /**
    * For Testing Purposes
@@ -14,12 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
   window.login = login;
   window.signup = signup;
   window.logout = logout;
-  window.getState = store.getState;
+  window.state = store.getState;
   window.dispatch = store.dispatch;
   /**
    * 
    */
 
 
-  ReactDOM.render(<Root/>, root);
+  ReactDOM.render(<Root store={store}/>, root);
 });
