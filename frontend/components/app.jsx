@@ -1,13 +1,13 @@
 import React from 'react';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import Splash from './splash';
-import AllTasks from './all_tasks';
+import MainPageContainer from './main_container';
 
 function App(){
   return(
    <div>
      <AuthRoute exact path="/" component={Splash} />
-     <ProtectedRoute path="/all" component={AllTasks} />
+     <ProtectedRoute path="/all" component={MainPageContainer} />
    </div>
   )
 }
