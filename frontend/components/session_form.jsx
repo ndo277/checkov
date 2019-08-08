@@ -35,7 +35,7 @@ function SessionForm(props){
                placeholder="Username"
                onChange={updateUsername}
                className="form-field"/>
-        <input type="text" 
+        <input type="password" 
                placeholder="Password"
                onChange={updatePassword}
                className="form-field"/>
