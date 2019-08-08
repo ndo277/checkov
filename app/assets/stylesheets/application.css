@@ -22,7 +22,14 @@
   flex-direction: column;
  } */
 
- body {
-  background-color: #fafafa80;
-  font-family: Arial;
+  
+
+body {
+    background-color: #fafafa80;
+    font-family: Arial;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
 }
