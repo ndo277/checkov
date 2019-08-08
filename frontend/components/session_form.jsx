@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 function SessionForm(props){
   const [username, setUsername] = useState("");
@@ -20,27 +20,30 @@ function SessionForm(props){
 
   const renderErrors = () => {
     return (
-      <ul>
+      <div className="errors">
         {props.errors.map((error) => (
           <p>{error}</p>
         ))}
-      </ul>
+      </div>
     )
   }
 
   return(
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="session-form">
         <input type="text" 
                placeholder="Username"
-               onChange={updateUsername}/>
+               onChange={updateUsername}
+               className="form-field"/>
         <input type="text" 
                placeholder="Password"
-               onChange={updatePassword}/>
-        <input type="submit" value={props.formType}/>
-      </form>
+               onChange={updatePassword}
+               className="form-field"/>
 
-      <ul>{renderErrors()}</ul>
+        <div className="session-errors">{renderErrors()}</div>
+
+        <input type="submit" value={props.formType} className="auth-button"/>
+      </form>
     </div>
   )
 }
