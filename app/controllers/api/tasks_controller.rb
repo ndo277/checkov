@@ -1,7 +1,7 @@
 class Api::TasksController < ApplicationController
   def index
-    @user = User.find(params[:id])
-    @tasks = @user.posts
+    @user = User.find(params[:user_id])
+    @tasks = @user.tasks
   end
 
 
