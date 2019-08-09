@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './components/root';
 import configureStore from './store/store';
-import {signup, login, logout} from './actions/session_actions';
+import { fetchTasks, createTask } from './util/task_api_util';
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
@@ -23,9 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * For Testing Purposes
    */
-  window.login = login;
-  window.signup = signup;
-  window.logout = logout;
+  window.fetchTasks = fetchTasks;
+  window.createTask = createTask;
   window.state = store.getState;
   window.dispatch = store.dispatch;
   /**

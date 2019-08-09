@@ -1,13 +1,11 @@
 class Api::TasksController < ApplicationController
   def index
-    @user = User.find(params[:user_id])
-    @tasks = @user.tasks
+    @tasks = current_user.tasks
   end
 
   def create  
-    @user = User.find(params[:user_id])
     @task = Task.new(task_params)
-    @task.user_id = @user.id
+    @task.user_id = current_user.id
     
     if @task.save 
       render :show
