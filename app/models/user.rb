@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   before_validation :ensure_session_token
 
+  has_many :tasks
+
   # needed to validate pw length
   attr_reader :password
 
