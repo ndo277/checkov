@@ -7,7 +7,7 @@ function App(){
   return(
    <div>
      <AuthRoute exact path="/" component={Splash} />
-     <ProtectedRoute path={`/users/:id/tasks`} component={MainPageContainer} />
+     <ProtectedRoute path="/all" component={MainPageContainer} />
    </div>
   )
 }
