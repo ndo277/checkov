@@ -7,11 +7,11 @@ const mapStateToProps = state => ({
   currentUser: state.entities.users[state.session.id]
 });
 
-const Auth = ({ loggedIn, path, component: Component }) => (
+const Auth = ({ loggedIn, currentUser, path, component: Component }) => (
   <Route
     path={path}
     render={props => (
-      loggedIn ? <Redirect to="/all" /> : <Component {...props} />
+      loggedIn ? <Redirect to={`/users/${currentUser.id}/tasks`} /> : <Component {...props} />
     )}
   />
 );
