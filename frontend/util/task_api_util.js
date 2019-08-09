@@ -10,7 +10,7 @@ export const createTask = (data) => {
   return $.ajax({
     url: `api/tasks`,
     method: 'POST',
-    data: data,
+    data: {task: data},
     error: (err) => console.log(err)
   });
 };
