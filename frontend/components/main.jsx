@@ -112,7 +112,7 @@ function Main(props) {
         </section>
 
         <section className="tasks">
-          <h1>TASKS</h1>
+          <h1>TASK</h1>
           
           <form onSubmit={handleTaskEditSubmit} onBlur={handleTaskEditSubmit}>
             <input type="text" value={selectedTaskBody} onChange={handleTaskEdit} />
