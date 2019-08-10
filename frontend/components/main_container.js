@@ -6,8 +6,11 @@ import { fetchTasks, createTask, deleteTask, editTask} from '../actions/task_act
 const mapStateToProps = (state) => {
   const currentUser = state.entities.users[state.session.id];
   const tasks = Object.values(state.entities.tasks);
+  const checkedTasks = tasks.filter(task => {
+    return task.checked === true;
+  });
 
-  return {currentUser, tasks};
+  return {currentUser, tasks, checkedTasks};
 };
 
 const mapDispatchToProps = (dispatch) => ({

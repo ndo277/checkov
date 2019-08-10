@@ -40,7 +40,11 @@ function Main(props) {
     setSelectedTaskBody(e.currentTarget.value);
   };
 
-
+  const handleDeleteClick = () => {
+    props.checkedTasks.forEach(task => {
+      props.deleteTask(task.id);
+    });
+  };
 
   return(
     <div>
@@ -52,6 +56,10 @@ function Main(props) {
 
       <div>
         <h1>TASKS</h1>
+
+        <button onClick={handleDeleteClick}>
+          Delete Checked Off
+        </button>
 
         <form onSubmit={handleTaskSubmit}>
           <input type="text" onChange={handleTaskInput} value={task} />
