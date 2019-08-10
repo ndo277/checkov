@@ -1,16 +1,18 @@
 import { connect } from 'react-redux';
 import Main from './main';
 import { logout } from '../actions/session_actions';
-import { fetchTasks, createTask, deleteTask, editTask} from '../actions/task_actions';
+import { fetchTasks, createTask, deleteTask, editTask } from '../actions/task_actions';
 
 const mapStateToProps = (state) => {
   const currentUser = state.entities.users[state.session.id];
-  const tasks = Object.values(state.entities.tasks);
-  const checkedTasks = tasks.filter(task => {
+  const tasks = Object.values(state.entities.tasks).filter(task => {
+    return task.checked === false;
+  });
+  const checkedTasks = Object.values(state.entities.tasks).filter(task => {
     return task.checked === true;
   });
 
-  return {currentUser, tasks, checkedTasks};
+  return { currentUser, tasks, checkedTasks };
 };
 
 const mapDispatchToProps = (dispatch) => ({

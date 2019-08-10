@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './components/root';
 import configureStore from './store/store';
-import { fetchTasks, createTask } from './actions/task_actions';
-import { logout } from './util/session_api_util';
+import { fetchTasks, createTask, editTask } from './actions/task_actions';
+// import { editTask } from './util/task_api_util';
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   window.fetchTasks = fetchTasks;
   window.createTask = createTask;
-  window.logout = logout;
+  window.editTask = editTask;
   window.state = store.getState;
   window.dispatch = store.dispatch;
   /**

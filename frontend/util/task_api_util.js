@@ -15,3 +15,18 @@ export const createTask = (data) => {
   });
 };
 
+export const deleteTask = (id) => {
+  return $.ajax({
+    url: `api/tasks/${id}`,
+    method: 'DELETE',
+    error: (err) => console.log(err)
+  });
+};
+
+export const editTask = (data) => {
+  return $.ajax({
+    url: `api/tasks/${data.id}`,
+    method: `PATCH`,
+    data: { task: data }
+  });
+};
