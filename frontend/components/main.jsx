@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import TaskItem from './task_item';
 
 function Main(props) {
 
@@ -41,7 +42,7 @@ function Main(props) {
 
         {props.tasks.map(task => {
           return <li key={task.id}>
-            {task.body}
+            <TaskItem task={task} deleteTask={props.deleteTask}/>
           </li>
         })}
       </div>

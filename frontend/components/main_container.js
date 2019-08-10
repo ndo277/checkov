@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Main from './main';
 import { logout } from '../actions/session_actions';
-import { fetchTasks, createTask} from '../actions/task_actions';
+import { fetchTasks, createTask, deleteTask} from '../actions/task_actions';
 
 const mapStateToProps = (state) => {
   const currentUser = state.entities.users[state.session.id];
@@ -13,7 +13,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   logout: () => dispatch(logout()),
   fetchTasks: () => dispatch(fetchTasks()),
-  createTask: (data) => dispatch(createTask(data))
+  createTask: (data) => dispatch(createTask(data)),
+  deleteTask: (id) => dispatch(deleteTask(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
