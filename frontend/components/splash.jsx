@@ -8,7 +8,7 @@ function Splash(){
   return(
     <div>
       <h1>CHECKOV</h1>
-      <h1>Get tasks done and check 'em off.</h1>
+      <h1>Set your goals and check 'em off.</h1>
 
       <button onClick={() => setForm(false)} className="form-tab">
         SIGN UP

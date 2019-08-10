@@ -68,49 +68,60 @@ function Main(props) {
         <button onClick={handleLogOut}>Log Out</button>
       </div>
 
-      <div>
-        <h1>TASKS</h1>
+      <div className="sections">
+        <section className="navlinks">
+          <Link to="/all">
+            All
+        </Link>
 
-        <button onClick={handleDeleteClick}>
-          Delete Checked Off
+          <Link to="/checked">
+            Checked
+        </Link>
+
+          <Link to="/unchecked">
+            Unchecked
+        </Link>
+        </section>
+
+        <section className="goals">
+          <h1>GOALS</h1>
+
+          <button onClick={handleDeleteClick}>
+            Delete Checked Off
         </button>
 
-        <button onClick={handleCheckAllClick}>
-          Check Off All Tasks
+          <button onClick={handleCheckAllClick}>
+            Check Off All Tasks
         </button>
 
-        <form onSubmit={handleTaskSubmit}>
-          <input type="text" onChange={handleTaskInput} value={task} />
-          <input type="submit" />
-        </form>
+          <form onSubmit={handleTaskSubmit}>
+            <input type="text" onChange={handleTaskInput} value={task} placeholder="Add goal"/>
+            <input type="submit" value="+"/>
+          </form>
 
-        {props.tasks.map(task => {
-          return <li key={task.id} className="task-list">
-            <TaskItem 
-              task={task} 
-              deleteTask={props.deleteTask} 
-              editTask={props.editTask} 
-              onSelectTask={handleTaskSelect}
+          {props.tasks.map(task => {
+            return <li key={task.id} className="task-list">
+              <TaskItem
+                task={task}
+                deleteTask={props.deleteTask}
+                editTask={props.editTask}
+                onSelectTask={handleTaskSelect}
               />
-          </li>
-        })}
+            </li>
+          })}
+        </section>
+
+        <section className="tasks">
+          <h1>TASKS</h1>
+          
+          <form onSubmit={handleTaskEditSubmit} onBlur={handleTaskEditSubmit}>
+            <input type="text" value={selectedTaskBody} onChange={handleTaskEdit} />
+          </form>
+        </section>
+
+
       </div>
 
-      <form onSubmit={handleTaskEditSubmit} onBlur={handleTaskEditSubmit}>
-        <input type="text" value={selectedTaskBody} onChange={handleTaskEdit}/>
-      </form>
-
-      <Link to="/all">
-        All
-      </Link>
-
-      <Link to="/checked">
-        Checked
-      </Link>
-
-      <Link to="/unchecked">
-        Unchecked
-      </Link>
       
       
     </div> 
