@@ -46,6 +46,13 @@ function Main(props) {
     });
   };
 
+  const handleCheckAllClick = () => {
+    props.tasks.forEach(task => {
+      const newTaskData = Object.assign({}, task, {checked: true});
+      props.editTask(newTaskData);
+    });
+  };
+
   return(
     <div>
       <div className="header">
@@ -59,6 +66,10 @@ function Main(props) {
 
         <button onClick={handleDeleteClick}>
           Delete Checked Off
+        </button>
+
+        <button onClick={handleCheckAllClick}>
+          Check Off All Tasks
         </button>
 
         <form onSubmit={handleTaskSubmit}>
