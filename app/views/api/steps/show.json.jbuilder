@@ -1,0 +1,1 @@
+json.extract! @step, :id, :body, :task_id, :checked
