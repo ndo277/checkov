@@ -8,7 +8,10 @@ function Main(props) {
   }, []);
 
   const [task, setTask] = useState("");
-  const [selectedTask, setSelectedTask] = useState({body: ""});
+  const [selectedTaskId, setSelectedTaskId] = useState("");
+  const [selectedTaskBody, setSelectedTaskBody] = useState("");
+  const [selectedTaskUserId, setSelectedTaskUserId] = useState("");
+  const [selectedTaskChecked, setSelectedTaskChecked] = useState("");
 
   const handleLogOut = () => {
     props.logout();
@@ -26,8 +29,27 @@ function Main(props) {
   };
 
   const handleTaskSelect = (task) => {
-    setSelectedTask(task);
+    setSelectedTaskId(task.id);
+    setSelectedTaskBody(task.body);
+    setSelectedTaskUserId(task.user_id);
+    setSelectedTaskChecked(task.checked);
   };
+
+  const handleTaskEditSubmit = () => {
+    const taskData = {
+      id: selectedTaskId,
+      body: selectedTaskBody,
+      user_id: selectedTaskUserId,
+      checked: selectedTaskChecked
+    };
+    props.editTask(taskData);
+  };
+
+  const handleTaskEdit = (e) => {
+    setSelectedTaskBody(e.currentTarget.value);
+  };
+
+
 
   return(
     <div>
@@ -52,7 +74,9 @@ function Main(props) {
         })}
       </div>
 
-      <h3>{selectedTask.body}</h3>
+      <form onSubmit={handleTaskEditSubmit}>
+        <input type="text" value={selectedTaskBody} onChange={handleTaskEdit}/>
+      </form>
       
     </div> 
   )
