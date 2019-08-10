@@ -40,3 +40,8 @@ export const deleteTask = (id) => (dispatch => {
   return TaskApiUtil.deleteTask(id).then(
     task => dispatch(removeTask(id)));
 });
+
+export const editTask = (task) => (dispatch => {
+  return TaskApiUtil.editTask(task).then(
+    task => dispatch(receiveTask(task)));
+});

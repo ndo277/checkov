@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './components/root';
 import configureStore from './store/store';
-import { fetchTasks, createTask } from './actions/task_actions';
-import { editTask } from './util/task_api_util';
+import { fetchTasks, createTask, editTask } from './actions/task_actions';
+// import { editTask } from './util/task_api_util';
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
