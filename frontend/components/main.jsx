@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import TaskItem from './task_item';
+import {Link} from 'react-router-dom';
 
 function Main(props) {
 
@@ -41,9 +42,15 @@ function Main(props) {
   };
 
   const handleDeleteClick = () => {
-    props.checkedTasks.forEach(task => {
-      props.deleteTask(task.id);
-    });
+    if (props.checkedTasks){
+      props.checkedTasks.forEach(task => {
+        props.deleteTask(task.id);
+      });
+    } else {
+      props.tasks.forEach(task => {
+        props.deleteTask(task.id);
+      });
+    }
   };
 
   const handleCheckAllClick = () => {
@@ -92,6 +99,19 @@ function Main(props) {
       <form onSubmit={handleTaskEditSubmit} onBlur={handleTaskEditSubmit}>
         <input type="text" value={selectedTaskBody} onChange={handleTaskEdit}/>
       </form>
+
+      <Link to="/all">
+        All
+      </Link>
+
+      <Link to="/checked">
+        Checked
+      </Link>
+
+      <Link to="/unchecked">
+        Unchecked
+      </Link>
+      
       
     </div> 
   )
