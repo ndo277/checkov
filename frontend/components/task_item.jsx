@@ -6,9 +6,16 @@ function TaskItem(props) {
     props.deleteTask(props.task.id);
   };
 
+  const handleSelectTask = () => {
+    let task = props.task;
+    props.onSelectTask(task);
+  };
+
   return(
    <div>
-      {props.task.body}
+      <div onClick={handleSelectTask}>
+        {props.task.body}
+      </div>
       <button onClick={handleXClick}>X</button>
    </div>
   )

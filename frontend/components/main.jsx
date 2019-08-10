@@ -8,6 +8,7 @@ function Main(props) {
   }, []);
 
   const [task, setTask] = useState("");
+  const [selectedTask, setSelectedTask] = useState({body: ""});
 
   const handleLogOut = () => {
     props.logout();
@@ -22,6 +23,10 @@ function Main(props) {
 
   const handleTaskInput = (e) => {
     setTask(e.currentTarget.value);
+  };
+
+  const handleTaskSelect = (task) => {
+    setSelectedTask(task);
   };
 
   return(
@@ -42,10 +47,12 @@ function Main(props) {
 
         {props.tasks.map(task => {
           return <li key={task.id}>
-            <TaskItem task={task} deleteTask={props.deleteTask}/>
+            <TaskItem task={task} deleteTask={props.deleteTask} onSelectTask={handleTaskSelect}/>
           </li>
         })}
       </div>
+
+      <h3>{selectedTask.body}</h3>
       
     </div> 
   )
