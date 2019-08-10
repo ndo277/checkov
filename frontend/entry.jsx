@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './components/root';
 import configureStore from './store/store';
-import { fetchTasks, createTask, editTask } from './actions/task_actions';
-import { fetchSteps, createStep, deleteStep, editStep } from './util/step_api_util';
+import { fetchSteps, createStep, deleteStep, editStep } from './actions/step_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
