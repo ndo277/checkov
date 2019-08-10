@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Root from './components/root';
 import configureStore from './store/store';
 import { fetchTasks, createTask } from './actions/task_actions';
-import { deleteTask } from './util/task_api_util';
+import { deleteTask } from './actions/task_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');

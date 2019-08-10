@@ -1,4 +1,4 @@
-import { RECEIVE_TASKS, RECEIVE_TASK } from '../actions/task_actions';
+import { RECEIVE_TASKS, RECEIVE_TASK, REMOVE_TASK } from '../actions/task_actions';
 
 const tasksReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -8,6 +8,10 @@ const tasksReducer = (state = {}, action) => {
     case RECEIVE_TASK:
       const newState = {[action.task.id]: action.task};
       return Object.assign({}, state, newState);
+    case REMOVE_TASK:
+      let nextState = Object.assign({}, state);
+      delete nextState[action.taskId];
+      return nextState;
     default:
       return state;
   }
