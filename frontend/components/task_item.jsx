@@ -17,7 +17,7 @@ function TaskItem(props) {
   };
 
   return(
-   <div className="task">
+   <div className="task-item">
      <input type="checkbox" checked={props.task.checked} onChange={handleCheckTask}/>
       <div onClick={handleSelectTask}>
         {props.task.body}

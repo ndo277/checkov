@@ -83,8 +83,8 @@ function Main(props) {
         </Link>
         </section>
 
-        <section className="goals">
-          <h1>GOALS</h1>
+        <section className="tasks">
+          <h1>TASKS</h1>
 
           <button onClick={handleDeleteClick}>
             Delete Checked Off
@@ -111,7 +111,7 @@ function Main(props) {
           })}
         </section>
 
-        <section className="tasks">
+        <section className="task">
           <h1>TASK</h1>
           
           <form onSubmit={handleTaskEditSubmit} onBlur={handleTaskEditSubmit}>

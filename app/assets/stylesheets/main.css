@@ -17,6 +17,11 @@ section {
 
 .task {
   display: flex;
+  flex-direction: column;
+}
+
+.task-item {
+  display: flex;
   flex-direction: row;
 }
 
