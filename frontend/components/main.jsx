@@ -8,10 +8,8 @@ function Main(props) {
   }, []);
 
   const [task, setTask] = useState("");
-  const [selectedTaskId, setSelectedTaskId] = useState("");
+  const [selectedTask, setSelectedTask] = useState("");
   const [selectedTaskBody, setSelectedTaskBody] = useState("");
-  const [selectedTaskUserId, setSelectedTaskUserId] = useState("");
-  const [selectedTaskChecked, setSelectedTaskChecked] = useState("");
 
   const handleLogOut = () => {
     props.logout();
@@ -29,19 +27,12 @@ function Main(props) {
   };
 
   const handleTaskSelect = (task) => {
-    setSelectedTaskId(task.id);
+    setSelectedTask(task);
     setSelectedTaskBody(task.body);
-    setSelectedTaskUserId(task.user_id);
-    setSelectedTaskChecked(task.checked);
   };
 
   const handleTaskEditSubmit = () => {
-    const taskData = {
-      id: selectedTaskId,
-      body: selectedTaskBody,
-      user_id: selectedTaskUserId,
-      checked: selectedTaskChecked
-    };
+    const taskData = Object.assign({}, selectedTask, { body: selectedTaskBody });
     props.editTask(taskData);
   };
 
