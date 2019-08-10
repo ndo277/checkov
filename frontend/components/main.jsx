@@ -59,13 +59,18 @@ function Main(props) {
         </form>
 
         {props.tasks.map(task => {
-          return <li key={task.id}>
-            <TaskItem task={task} deleteTask={props.deleteTask} onSelectTask={handleTaskSelect}/>
+          return <li key={task.id} className="task-list">
+            <TaskItem 
+              task={task} 
+              deleteTask={props.deleteTask} 
+              editTask={props.editTask} 
+              onSelectTask={handleTaskSelect}
+              />
           </li>
         })}
       </div>
 
-      <form onSubmit={handleTaskEditSubmit}>
+      <form onSubmit={handleTaskEditSubmit} onBlur={handleTaskEditSubmit}>
         <input type="text" value={selectedTaskBody} onChange={handleTaskEdit}/>
       </form>
       

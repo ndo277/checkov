@@ -6,3 +6,12 @@
   width: 100%;
   background-color: #25d433;
 }
+
+.task-list {
+  list-style: none;
+}
+
+.task {
+  display: flex;
+  flex-direction: row;
+}
