@@ -22,3 +22,11 @@ export const deleteTask = (id) => {
     error: (err) => console.log(err)
   });
 };
+
+export const editTask = (data) => {
+  return $.ajax({
+    url: `api/tasks/${data.id}`,
+    method: `PATCH`,
+    data: { task: data }
+  });
+};
