@@ -16,7 +16,8 @@ function StepItem(props) {
     setStepBody(e.currentTarget.value);
   };
 
-  const handleStepSubmit = () => {
+  const handleStepSubmit = (e) => {
+    e.preventDefault();
     const stepData = Object.assign({}, props.step, {body: stepBody});
     props.editStep(stepData);
   };

@@ -18,7 +18,8 @@ function Main(props) {
     props.logout();
   };
 
-  const handleTaskSubmit = () => {
+  const handleTaskSubmit = (e) => {
+    e.preventDefault();
     const taskData = {body: task};
     props.createTask(taskData).then(() => {
       setTask("");
@@ -35,7 +36,8 @@ function Main(props) {
     props.fetchSteps(task.id);
   };
 
-  const handleTaskEditSubmit = () => {
+  const handleTaskEditSubmit = (e) => {
+    e.preventDefault();
     const taskData = Object.assign({}, selectedTask, { body: selectedTaskBody });
     props.editTask(taskData);
   };
@@ -56,7 +58,8 @@ function Main(props) {
     }
   };
 
-  const handleStepSubmit  = () => {
+  const handleStepSubmit  = (e) => {
+    e.preventDefault();
     const stepData = {body: step, task_id: selectedTask.id};
     props.createStep(stepData).then(() => {
       setStep("");
