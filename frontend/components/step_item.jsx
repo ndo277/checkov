@@ -28,12 +28,19 @@ function StepItem(props) {
   };
 
   return(
-    <div className="task-item">
-      <input type="checkbox" checked={props.step.checked} onChange={handleCheckStep} />
-      <form onSubmit={handleStepSubmit} onBlur={handleStepSubmit}>
-        <input type="text" value={stepBody} onChange={handleStepEdit}/>
-      </form>
-      <button onClick={handleStepDelete}>X</button>
+    <div className="step-item">
+      <div className="task-mark">
+        <input type="checkbox" checked={props.step.checked} onChange={handleCheckStep} />
+        <form onSubmit={handleStepSubmit} onBlur={handleStepSubmit}>
+          <input 
+            type="text" value={stepBody} 
+            onChange={handleStepEdit} 
+            className="step-input"
+            />
+        </form>
+      </div>
+      
+      <button onClick={handleStepDelete} className="button">X</button>
     </div>
   )
 }

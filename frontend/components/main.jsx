@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import TaskItem from './task_item';
 import StepItem from './step_item';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 function Main(props) {
 
@@ -90,40 +90,57 @@ function Main(props) {
     <div>
       <div className="header">
         <h3>CHECKOV</h3>
-        <p>Hi, {props.currentUser.username}.</p>
+        <strong>Hi, {props.currentUser.username}.</strong>
         <button onClick={handleLogOut}>Log Out</button>
       </div>
 
       <div className="sections">
-        <section className="navlinks">
-          <Link to="/all">
+
+        <section className="navlinks-sidebar">
+          <NavLink to="/all" className="navlink" activeClassName="active">
             All
-        </Link>
+          </NavLink>
 
-          <Link to="/checked">
+          <NavLink to="/checked" className="navlink">
             Checked
-        </Link>
+          </NavLink>
 
-          <Link to="/unchecked">
+          <NavLink to="/unchecked" className="navlink">
             Unchecked
-        </Link>
+          </NavLink>
         </section>
 
-        <section className="tasks">
-          <h1>TASKS</h1>
+        <section className="tasks-section">
 
-          <button onClick={handleDeleteTasksClick}>
-            Delete Checked Tasks
-          </button>
+          <div className="tasks-header">
+            <h1>TASKS</h1>
 
-          <button onClick={handleCheckAllClick}>
-            Check Off All Tasks
-          </button>
+            <form onSubmit={handleTaskSubmit}>
+              <input 
+                type="text" 
+                onChange={handleTaskInput} 
+                value={task} 
+                placeholder="Add task" 
+                className="input-field"
+                />
 
-          <form onSubmit={handleTaskSubmit}>
-            <input type="text" onChange={handleTaskInput} value={task} placeholder="Add task"/>
-            <input type="submit" value="+"/>
-          </form>
+              <input type="submit" value="+" className="button"/>
+            </form>
+
+
+            <div className="task-buttons">
+              <button onClick={handleDeleteTasksClick} className="button">
+                Delete Checked Tasks
+              </button>
+
+              <button onClick={handleCheckAllClick} className="button">
+                Check Off All Tasks
+              </button>
+            </div>
+          </div>
+          
+
+          
 
           {props.tasks.map(task => {
             return <li key={task.id} className="task-list">
@@ -137,20 +154,24 @@ function Main(props) {
           })}
         </section>
 
-        <section className="task">
-          <h1>TASK</h1>
+        <section className="task-sidebar">
 
-          <button onClick={handleDeleteStepsClick}>
+          <form onSubmit={handleTaskEditSubmit} onBlur={handleTaskEditSubmit}>
+            <input 
+              type="text" 
+              value={selectedTaskBody} 
+              onChange={handleTaskEdit} 
+              className="task-input"
+              />
+          </form>
+
+          <button onClick={handleDeleteStepsClick} className="button">
             Delete Checked Steps
           </button>
-          
-          <form onSubmit={handleTaskEditSubmit} onBlur={handleTaskEditSubmit}>
-            <input type="text" value={selectedTaskBody} onChange={handleTaskEdit} />
-          </form>
 
           <form onSubmit={handleStepSubmit}>
             <input type="text" onChange={handleStepInput} value={step} placeholder="Add step" />
-            <input type="submit" value="+" />
+            <input type="submit" value="+" className="button"/>
           </form>
 
           {props.steps.map(step => {

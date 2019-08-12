@@ -23,7 +23,38 @@ section {
 .task-item {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  height: 40px;
+  width: 750px;
+  justify-content: space-between;
+  border-bottom: 1px solid lightgray;
 }
+
+.task-item:hover {
+  background-color: rgba(211, 211, 211, 0.5);
+}
+
+.step-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 40px;
+  width: 350px;
+  justify-content: space-between;
+  border-bottom: 1px solid lightgray;
+}
+
+.step-item:hover {
+  background-color: rgba(211, 211, 211, 0.5);
+}
+
+.task-mark {
+  display: flex;
+  justify-content: flex-start;
+  cursor: pointer;
+  width: 100%;
+}
+
 
 .navlinks {
   display: flex;
@@ -34,4 +65,93 @@ section {
   display: flex;
   flex-direction: row;
 }
+
+.navlinks-sidebar {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  align-items: flex-start;
+} 
+
+.tasks-section {
+  width: 55%;
+  height: 100vh;
+  background-color: white;
+  border: 1px solid #efefef;
+  margin: 0;
+  padding: 20px;
+}
+
+.task-sidebar {
+  width: 25%;
+}
+
+.navlink {
+  text-decoration: none;
+  color: black;
+  width: 100%;
+  height: 36px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.navlink:hover {
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.787);
+}
+
+.active {
+  background-color: lightgray;
+  font-weight: bold;
+}
+
+.tasks-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field {
+  height: 25px;
+  width: 200px;
+  padding: 2px;
+}
+
+.button {
+  margin: 2px;
+  cursor: pointer;
+  font-weight: bold;
+  height: 20px;
+  background-color: white;
+}
+
+.task-input {
+  height: 30px;
+  font-size: 100%;
+  background-color: rgba(211, 211, 211, 0.164); 
+  border: none;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.step-input {
+  height: 25px;
+  font-size: 100%;
+  background-color: rgba(211, 211, 211, 0.164); 
+  border: none;
+  font-weight: bold;
+  width: 300px;
+}
+
+
+
+
 
