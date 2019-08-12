@@ -139,10 +139,8 @@ function Main(props) {
           </form>
 
           {props.steps.map(step => {
-            return <li key={step.id}>
-              <StepItem step={step} deleteStep={props.deleteStep}/>
-              {/* {step.body}
-              <button onClick={handleStepDelete}>X</button> */}
+            return <li key={step.id} className="task-list">
+              <StepItem step={step} deleteStep={props.deleteStep} editStep={props.editStep}/>
             </li>
           })}
         </section>
