@@ -30,6 +30,24 @@ section {
   border-bottom: 1px solid lightgray;
 }
 
+.task-item:hover {
+  background-color: rgba(211, 211, 211, 0.5);
+}
+
+.step-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 40px;
+  width: 350px;
+  justify-content: space-between;
+  border-bottom: 1px solid lightgray;
+}
+
+.step-item:hover {
+  background-color: rgba(211, 211, 211, 0.5);
+}
+
 .task-mark {
   display: flex;
   justify-content: flex-start;
@@ -113,6 +131,24 @@ section {
   font-weight: bold;
   height: 20px;
   background-color: white;
+}
+
+.task-input {
+  height: 30px;
+  font-size: 100%;
+  background-color: rgba(211, 211, 211, 0.164); 
+  border: none;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.step-input {
+  height: 25px;
+  font-size: 100%;
+  background-color: rgba(211, 211, 211, 0.164); 
+  border: none;
+  font-weight: bold;
+  width: 300px;
 }
 
 

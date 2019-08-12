@@ -155,15 +155,19 @@ function Main(props) {
         </section>
 
         <section className="task-sidebar">
-          <h1>TASK</h1>
 
-          <button onClick={handleDeleteStepsClick}>
+          <form onSubmit={handleTaskEditSubmit} onBlur={handleTaskEditSubmit}>
+            <input 
+              type="text" 
+              value={selectedTaskBody} 
+              onChange={handleTaskEdit} 
+              className="task-input"
+              />
+          </form>
+
+          <button onClick={handleDeleteStepsClick} className="button">
             Delete Checked Steps
           </button>
-          
-          <form onSubmit={handleTaskEditSubmit} onBlur={handleTaskEditSubmit}>
-            <input type="text" value={selectedTaskBody} onChange={handleTaskEdit} />
-          </form>
 
           <form onSubmit={handleStepSubmit}>
             <input type="text" onChange={handleStepInput} value={step} placeholder="Add step" />
