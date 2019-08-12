@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import TaskItem from './task_item';
+import StepItem from './step_item';
 import {Link} from 'react-router-dom';
 
 function Main(props) {
@@ -11,6 +12,7 @@ function Main(props) {
   const [task, setTask] = useState("");
   const [selectedTask, setSelectedTask] = useState("");
   const [selectedTaskBody, setSelectedTaskBody] = useState("");
+  const [step, setStep] = useState("");
 
   const handleLogOut = () => {
     props.logout();
@@ -30,6 +32,7 @@ function Main(props) {
   const handleTaskSelect = (task) => {
     setSelectedTask(task);
     setSelectedTaskBody(task.body);
+    props.fetchSteps(task.id);
   };
 
   const handleTaskEditSubmit = () => {
@@ -53,12 +56,24 @@ function Main(props) {
     }
   };
 
+  const handleStepSubmit  = () => {
+    const stepData = {body: step, task_id: selectedTask.id};
+    props.createStep(stepData).then(() => {
+      setStep("");
+    });
+  };
+
+  const handleStepInput  = (e) => {
+    setStep(e.currentTarget.value);
+  };
+
   const handleCheckAllClick = () => {
     props.tasks.forEach(task => {
       const newTaskData = Object.assign({}, task, {checked: true});
       props.editTask(newTaskData);
     });
   };
+
 
   return(
     <div>
@@ -95,7 +110,7 @@ function Main(props) {
         </button>
 
           <form onSubmit={handleTaskSubmit}>
-            <input type="text" onChange={handleTaskInput} value={task} placeholder="Add goal"/>
+            <input type="text" onChange={handleTaskInput} value={task} placeholder="Add task"/>
             <input type="submit" value="+"/>
           </form>
 
@@ -117,6 +132,19 @@ function Main(props) {
           <form onSubmit={handleTaskEditSubmit} onBlur={handleTaskEditSubmit}>
             <input type="text" value={selectedTaskBody} onChange={handleTaskEdit} />
           </form>
+
+          <form onSubmit={handleStepSubmit}>
+            <input type="text" onChange={handleStepInput} value={step} placeholder="Add step" />
+            <input type="submit" value="+" />
+          </form>
+
+          {props.steps.map(step => {
+            return <li key={step.id}>
+              <StepItem step={step} deleteStep={props.deleteStep}/>
+              {/* {step.body}
+              <button onClick={handleStepDelete}>X</button> */}
+            </li>
+          })}
         </section>
 
 
