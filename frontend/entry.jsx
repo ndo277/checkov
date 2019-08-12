@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './components/root';
 import configureStore from './store/store';
-import { fetchTasks, createTask, editTask } from './actions/task_actions';
-// import { editTask } from './util/task_api_util';
+import { fetchSteps, createStep, deleteStep, editStep } from './actions/step_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
@@ -24,9 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * For Testing Purposes
    */
-  window.fetchTasks = fetchTasks;
-  window.createTask = createTask;
-  window.editTask = editTask;
+  window.fetchSteps = fetchSteps;
+  window.createStep = createStep;
+  window.editStep = editStep;
+  window.deleteStep = deleteStep;
   window.state = store.getState;
   window.dispatch = store.dispatch;
   /**

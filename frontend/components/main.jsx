@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import TaskItem from './task_item';
+import StepItem from './step_item';
 import {Link} from 'react-router-dom';
 
 function Main(props) {
@@ -11,12 +12,14 @@ function Main(props) {
   const [task, setTask] = useState("");
   const [selectedTask, setSelectedTask] = useState("");
   const [selectedTaskBody, setSelectedTaskBody] = useState("");
+  const [step, setStep] = useState("");
 
   const handleLogOut = () => {
     props.logout();
   };
 
-  const handleTaskSubmit = () => {
+  const handleTaskSubmit = (e) => {
+    e.preventDefault();
     const taskData = {body: task};
     props.createTask(taskData).then(() => {
       setTask("");
@@ -30,9 +33,11 @@ function Main(props) {
   const handleTaskSelect = (task) => {
     setSelectedTask(task);
     setSelectedTaskBody(task.body);
+    props.fetchSteps(task.id);
   };
 
-  const handleTaskEditSubmit = () => {
+  const handleTaskEditSubmit = (e) => {
+    e.preventDefault();
     const taskData = Object.assign({}, selectedTask, { body: selectedTaskBody });
     props.editTask(taskData);
   };
@@ -41,7 +46,7 @@ function Main(props) {
     setSelectedTaskBody(e.currentTarget.value);
   };
 
-  const handleDeleteClick = () => {
+  const handleDeleteTasksClick = () => {
     if (props.checkedTasks){
       props.checkedTasks.forEach(task => {
         props.deleteTask(task.id);
@@ -53,12 +58,33 @@ function Main(props) {
     }
   };
 
+  const handleDeleteStepsClick = () => {
+    props.steps.forEach(step => {
+      if (step.checked){
+        props.deleteStep(step.id);
+      }
+    });
+  };
+
+  const handleStepSubmit  = (e) => {
+    e.preventDefault();
+    const stepData = {body: step, task_id: selectedTask.id};
+    props.createStep(stepData).then(() => {
+      setStep("");
+    });
+  };
+
+  const handleStepInput  = (e) => {
+    setStep(e.currentTarget.value);
+  };
+
   const handleCheckAllClick = () => {
     props.tasks.forEach(task => {
       const newTaskData = Object.assign({}, task, {checked: true});
       props.editTask(newTaskData);
     });
   };
+
 
   return(
     <div>
@@ -86,16 +112,16 @@ function Main(props) {
         <section className="tasks">
           <h1>TASKS</h1>
 
-          <button onClick={handleDeleteClick}>
-            Delete Checked Off
-        </button>
+          <button onClick={handleDeleteTasksClick}>
+            Delete Checked Tasks
+          </button>
 
           <button onClick={handleCheckAllClick}>
             Check Off All Tasks
-        </button>
+          </button>
 
           <form onSubmit={handleTaskSubmit}>
-            <input type="text" onChange={handleTaskInput} value={task} placeholder="Add goal"/>
+            <input type="text" onChange={handleTaskInput} value={task} placeholder="Add task"/>
             <input type="submit" value="+"/>
           </form>
 
@@ -113,10 +139,25 @@ function Main(props) {
 
         <section className="task">
           <h1>TASK</h1>
+
+          <button onClick={handleDeleteStepsClick}>
+            Delete Checked Steps
+          </button>
           
           <form onSubmit={handleTaskEditSubmit} onBlur={handleTaskEditSubmit}>
             <input type="text" value={selectedTaskBody} onChange={handleTaskEdit} />
           </form>
+
+          <form onSubmit={handleStepSubmit}>
+            <input type="text" onChange={handleStepInput} value={step} placeholder="Add step" />
+            <input type="submit" value="+" />
+          </form>
+
+          {props.steps.map(step => {
+            return <li key={step.id} className="task-list">
+              <StepItem step={step} deleteStep={props.deleteStep} editStep={props.editStep}/>
+            </li>
+          })}
         </section>
 
 
