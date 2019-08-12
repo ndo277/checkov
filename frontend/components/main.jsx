@@ -102,7 +102,7 @@ function Main(props) {
           <h1>TASKS</h1>
 
           <button onClick={handleDeleteClick}>
-            Delete Checked Off
+            Delete Checked Tasks
         </button>
 
           <button onClick={handleCheckAllClick}>
