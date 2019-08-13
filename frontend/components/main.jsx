@@ -129,7 +129,7 @@ function Main(props) {
 
 
             <div className="task-buttons">
-              <button onClick={handleDeleteTasksClick} className="button">
+              <button onClick={handleDeleteTasksClick} className="del-button">
                 Delete Checked Tasks
               </button>
 
@@ -165,14 +165,20 @@ function Main(props) {
               />
           </form>
 
-          <button onClick={handleDeleteStepsClick} className="button">
+          <form onSubmit={handleStepSubmit}>
+            <input 
+              type="text" 
+              onChange={handleStepInput} 
+              value={step} 
+              placeholder="Add step" 
+              className="input-field"
+              />
+            <input type="submit" value="+" className="button" />
+          </form>
+
+          <button onClick={handleDeleteStepsClick} className="del-button">
             Delete Checked Steps
           </button>
-
-          <form onSubmit={handleStepSubmit}>
-            <input type="text" onChange={handleStepInput} value={step} placeholder="Add step" />
-            <input type="submit" value="+" className="button"/>
-          </form>
 
           {props.steps.map(step => {
             return <li key={step.id} className="task-list">
