@@ -176,17 +176,21 @@ function Main(props) {
             <input type="submit" value="+" className="button" />
           </form>
 
-          <button onClick={handleDeleteStepsClick} className="del-button">
-            Delete Checked Steps
-          </button>
+      
+            {props.steps.map(step => {
+              return <li key={step.id} className="task-list">
+                <StepItem step={step} deleteStep={props.deleteStep} editStep={props.editStep} />
+              </li>
+            })}
 
-          {props.steps.map(step => {
-            return <li key={step.id} className="task-list">
-              <StepItem step={step} deleteStep={props.deleteStep} editStep={props.editStep}/>
-            </li>
-          })}
+            <button onClick={handleDeleteStepsClick} className="del-button">
+              Delete Checked Steps
+            </button>
+          
+
         </section>
 
+        
 
       </div>
 
