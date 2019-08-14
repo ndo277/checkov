@@ -85,6 +85,44 @@ function Main(props) {
     });
   };
 
+  const TaskSidebar = (
+    <section className="task-sidebar" >
+
+      <form onSubmit={handleTaskEditSubmit} onBlur={handleTaskEditSubmit}>
+        <input
+          type="text"
+          value={selectedTaskBody}
+          onChange={handleTaskEdit}
+          className="task-input"
+        />
+      </form>
+
+      <form onSubmit={handleStepSubmit}>
+        <input
+          type="text"
+          onChange={handleStepInput}
+          value={step}
+          placeholder="Add step"
+          className="input-field"
+        />
+        <input type="submit" value="+" className="button" />
+      </form>
+
+
+      {props.steps.map(step => {
+        return <li key={step.id} className="task-list">
+          <StepItem step={step} deleteStep={props.deleteStep} editStep={props.editStep} />
+        </li>
+      })}
+
+      <button onClick={handleDeleteStepsClick} className="del-button">
+        Delete Checked Steps
+            </button>
+
+
+    </section>
+  )
+
 
   return(
     <div>
@@ -138,9 +176,6 @@ function Main(props) {
               </button>
             </div>
           </div>
-          
-
-          
 
           {props.tasks.map(task => {
             return <li key={task.id} className="task-list">
@@ -154,43 +189,7 @@ function Main(props) {
           })}
         </section>
 
-        <section className="task-sidebar">
-
-          <form onSubmit={handleTaskEditSubmit} onBlur={handleTaskEditSubmit}>
-            <input 
-              type="text" 
-              value={selectedTaskBody} 
-              onChange={handleTaskEdit} 
-              className="task-input"
-              />
-          </form>
-
-          <form onSubmit={handleStepSubmit}>
-            <input 
-              type="text" 
-              onChange={handleStepInput} 
-              value={step} 
-              placeholder="Add step" 
-              className="input-field"
-              />
-            <input type="submit" value="+" className="button" />
-          </form>
-
-      
-            {props.steps.map(step => {
-              return <li key={step.id} className="task-list">
-                <StepItem step={step} deleteStep={props.deleteStep} editStep={props.editStep} />
-              </li>
-            })}
-
-            <button onClick={handleDeleteStepsClick} className="del-button">
-              Delete Checked Steps
-            </button>
-          
-
-        </section>
-
-        
+        {selectedTask && TaskSidebar}
 
       </div>
 
