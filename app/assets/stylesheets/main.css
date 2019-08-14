@@ -19,6 +19,16 @@ section {
   height: 50px;
   width: 100%;
   background-color: #25d433;
+  color: white;
+}
+
+.logo {
+  margin-left: 70px;
+}
+
+.logout-button {
+  margin-right: 30px;
+  cursor: pointer;
 }
 
 .task-list {

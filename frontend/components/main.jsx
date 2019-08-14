@@ -85,6 +85,49 @@ function Main(props) {
     });
   };
 
+  const TasksList = (
+    <section className="tasks-section">
+
+      <div className="tasks-header">
+        <h1>TASKS</h1>
+
+        <form onSubmit={handleTaskSubmit}>
+          <input
+            type="text"
+            onChange={handleTaskInput}
+            value={task}
+            placeholder="Add task"
+            className="input-field"
+          />
+
+          <input type="submit" value="+" className="button" />
+        </form>
+
+
+        <div className="task-buttons">
+          <button onClick={handleDeleteTasksClick} className="del-button">
+            Delete Checked Tasks
+              </button>
+
+          <button onClick={handleCheckAllClick} className="button">
+            Check Off All Tasks
+              </button>
+        </div>
+      </div>
+
+      {props.tasks.map(task => {
+        return <li key={task.id} className="task-list">
+          <TaskItem
+            task={task}
+            deleteTask={props.deleteTask}
+            editTask={props.editTask}
+            onSelectTask={handleTaskSelect}
+          />
+        </li>
+      })}
+    </section>
+  )
+
   const TaskSidebar = (
     <section className="task-sidebar" >
 
@@ -108,6 +151,10 @@ function Main(props) {
         <input type="submit" value="+" className="button" />
       </form>
 
+      <button onClick={handleDeleteStepsClick} className="del-button">
+        Delete Checked Steps
+      </button>
+
 
       {props.steps.map(step => {
         return <li key={step.id} className="task-list">
@@ -115,86 +162,43 @@ function Main(props) {
         </li>
       })}
 
-      <button onClick={handleDeleteStepsClick} className="del-button">
-        Delete Checked Steps
-            </button>
+      
 
 
     </section>
   )
 
+  const Header = (
+    <div className="header">
+      <h2 className="logo">CHECKOV</h2>
+      <button onClick={handleLogOut} className="logout-button">Log out {props.currentUser.username}</button>
+    </div>
+  )
+
+  const NavLinksBar = (
+    <section className="navlinks-sidebar">
+      <NavLink to="/all" className="navlink" activeClassName="active">
+        All
+          </NavLink>
+
+      <NavLink to="/checked" className="navlink">
+        Checked
+          </NavLink>
+
+      <NavLink to="/unchecked" className="navlink">
+        Unchecked
+          </NavLink>
+    </section>
+  )
 
   return(
     <div>
-      <div className="header">
-        <h3>CHECKOV</h3>
-        <strong>Hi, {props.currentUser.username}.</strong>
-        <button onClick={handleLogOut}>Log Out</button>
-      </div>
-
+      {Header}
       <div className="sections">
-
-        <section className="navlinks-sidebar">
-          <NavLink to="/all" className="navlink" activeClassName="active">
-            All
-          </NavLink>
-
-          <NavLink to="/checked" className="navlink">
-            Checked
-          </NavLink>
-
-          <NavLink to="/unchecked" className="navlink">
-            Unchecked
-          </NavLink>
-        </section>
-
-        <section className="tasks-section">
-
-          <div className="tasks-header">
-            <h1>TASKS</h1>
-
-            <form onSubmit={handleTaskSubmit}>
-              <input 
-                type="text" 
-                onChange={handleTaskInput} 
-                value={task} 
-                placeholder="Add task" 
-                className="input-field"
-                />
-
-              <input type="submit" value="+" className="button"/>
-            </form>
-
-
-            <div className="task-buttons">
-              <button onClick={handleDeleteTasksClick} className="del-button">
-                Delete Checked Tasks
-              </button>
-
-              <button onClick={handleCheckAllClick} className="button">
-                Check Off All Tasks
-              </button>
-            </div>
-          </div>
-
-          {props.tasks.map(task => {
-            return <li key={task.id} className="task-list">
-              <TaskItem
-                task={task}
-                deleteTask={props.deleteTask}
-                editTask={props.editTask}
-                onSelectTask={handleTaskSelect}
-              />
-            </li>
-          })}
-        </section>
-
+        {NavLinksBar}
+        {TasksList}
         {selectedTask && TaskSidebar}
-
-      </div>
-
-      
-      
+      </div> 
     </div> 
   )
 }
