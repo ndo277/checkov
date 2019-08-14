@@ -40,7 +40,7 @@ function StepItem(props) {
         </form>
       </div>
       
-      <button onClick={handleStepDelete} className="button">X</button>
+      <button onClick={handleStepDelete} className="trash-button">X</button>
     </div>
   )
 }

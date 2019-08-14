@@ -1,3 +1,13 @@
+body {
+    background-color: rgba(211, 211, 211, 0.5);
+    font-family: Arial;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
 section {
   margin: 20px;
 }
@@ -137,15 +147,42 @@ section {
   font-weight: bold;
   height: 20px;
   background-color: white;
+  border: 3px;
 }
 
-.del-button {
+.button:hover {
+  background-color: #25d433;
+  color: white;
+  border-radius: 5px;
+}
+
+.trash-button {
+  margin: 2px;
+  cursor: pointer;
+  font-weight: bold;
+  height: 20px;
+  background-color: white;
+  border: 3px;
+}
+
+.trash-button:hover {
   background-color: red;
   color: white;
+  border-radius: 5px;
+} 
+
+.del-button {
   font-weight: bold;
   height: 20px;
   cursor: pointer;
   margin: 5px;
+  border: 3px;
+}
+
+.del-button:hover {
+  background-color: red;
+  color: white;
+  border-radius: 5px;
 }
 
 .task-input {

@@ -13,14 +13,4 @@
  *= require_tree .
  *= require_self
  */
-  
 
-body {
-    background-color: rgba(211, 211, 211, 0.5);
-    font-family: Arial;
-}
-
-body, html {
-  margin: 0;
-  padding: 0;
-}

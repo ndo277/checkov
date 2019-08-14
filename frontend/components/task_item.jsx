@@ -25,7 +25,7 @@ function TaskItem(props) {
         </div>
      </div>
       
-      <button onClick={handleXClick} className="button">X</button>
+      <button onClick={handleXClick} className="trash-button">X</button>
    </div>
   )
 }
