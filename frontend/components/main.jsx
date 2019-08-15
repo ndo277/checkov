@@ -9,14 +9,32 @@ function Main(props) {
   const [selectedTask, setSelectedTask] = useState("");
   const [selectedTaskBody, setSelectedTaskBody] = useState("");
   const [step, setStep] = useState("");
-  const [prefilteredTasks, setPrefilteredTasks] = useState("");
+  const [prefilteredTasks, setPrefilteredTasks] = useState({});
 
   useEffect(() => {
     props.fetchTasks().then(res => {
-      let unfilteredTasks = Object.values(res.tasks);
-      setPrefilteredTasks(unfilteredTasks);
+      setPrefilteredTasks(res.tasks);
     });
   }, []);
+
+  const handleSearchInput = (e) => {
+    setSelectedTask("");
+    let searchBody = e.currentTarget.value.toLowerCase();
+    let filteredTasks = Object.values(prefilteredTasks).filter(task => {
+      let taskBody = task.body.toLowerCase();
+      return (
+        taskBody.indexOf(searchBody) !== -1
+      );
+    });
+
+    props.updateTasks(filteredTasks);
+  };
+
+  const handleRemoveTask = (taskId) => {
+    let nextPrefilteredTasks = Object.assign({}, prefilteredTasks);
+    delete nextPrefilteredTasks[taskId];
+    setPrefilteredTasks(nextPrefilteredTasks);
+  };
 
   const handleLogOut = () => {
     props.logout();
@@ -89,19 +107,6 @@ function Main(props) {
     });
   };
 
-  const handleSearchInput = (e) => {
-    setSelectedTask("");
-    let searchBody = e.currentTarget.value.toLowerCase();
-    let filteredTasks = prefilteredTasks.filter(task => {
-      let taskBody = task.body.toLowerCase();
-      return (
-        taskBody.indexOf(searchBody) !== -1
-      );
-    });
-
-    props.updateTasks(filteredTasks);
-  };
-
   const TasksList = (
     <section className="tasks-section">
 
@@ -124,11 +129,11 @@ function Main(props) {
         <div className="task-buttons">
           <button onClick={handleDeleteTasksClick} className="del-button">
             Delete Checked Tasks
-              </button>
+          </button>
 
           <button onClick={handleCheckAllClick} className="button">
             Check Off All Tasks
-              </button>
+          </button>
         </div>
       </div>
 
@@ -139,6 +144,8 @@ function Main(props) {
             deleteTask={props.deleteTask}
             editTask={props.editTask}
             onSelectTask={handleTaskSelect}
+            removeTask={handleRemoveTask}
+            
           />
         </li>
       })}
@@ -179,9 +186,6 @@ function Main(props) {
         </li>
       })}
 
-      
-
-
     </section>
   )
 
@@ -189,9 +193,7 @@ function Main(props) {
     <div className="header">
       <h2 className="logo">CHECKOV</h2>
 
-      <form >
-        <input type="text" onChange={handleSearchInput}/>
-      </form>
+      <input type="text" onChange={handleSearchInput} className="search-bar" placeholder="Search Tasks..."/>
 
       <button onClick={handleLogOut} className="logout-button">Log out {props.currentUser.username}</button>
     </div>

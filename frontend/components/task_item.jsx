@@ -3,7 +3,10 @@ import React from 'react';
 function TaskItem(props) {
 
   const handleXClick = () => {
-    props.deleteTask(props.task.id);
+    let taskId = props.task.id;
+    // update parent state in parallel with redux state for filtering
+    props.removeTask(taskId);
+    props.deleteTask(taskId);
   };
 
   const handleCheckTask = () => {

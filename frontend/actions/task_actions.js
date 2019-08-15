@@ -47,5 +47,11 @@ export const editTask = (task) => (dispatch => {
 });
 
 export const updateTasks = (tasks) => (dispatch => {
-  dispatch(receiveTasks(tasks));
+  // normalize state
+  let taskObj = {};
+  tasks.forEach(task => {
+    taskObj[task.id] = task;
+  });
+
+  dispatch(receiveTasks(taskObj));
 });

@@ -7,8 +7,6 @@ import { fetchSteps, createStep, deleteStep, editStep } from '../actions/step_ac
 const mapStateToProps = (state) => {
   const currentUser = state.entities.users[state.session.id];
 
-  const stateTasks = state.entities.tasks;
-
   const tasks = Object.values(state.entities.tasks);
   const checkedTasks = tasks.filter(task => {
     return task.checked === true;
@@ -16,7 +14,7 @@ const mapStateToProps = (state) => {
 
   const steps = Object.values(state.entities.steps);
 
-  return {currentUser, tasks, checkedTasks, steps, stateTasks};
+  return {currentUser, tasks, checkedTasks, steps};
 };
 
 const mapDispatchToProps = (dispatch) => ({
