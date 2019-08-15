@@ -36,6 +36,12 @@ function Main(props) {
     setPrefilteredTasks(nextPrefilteredTasks);
   };
 
+  const handleUpdateCheck = (updatedTask) => {
+    let revisedTask = {[updatedTask.id]: updatedTask};
+    let nextPrefilteredTasks = Object.assign({}, prefilteredTasks, revisedTask);
+    setPrefilteredTasks(nextPrefilteredTasks);
+  };
+
   const handleLogOut = () => {
     props.logout();
   };
@@ -145,7 +151,7 @@ function Main(props) {
             editTask={props.editTask}
             onSelectTask={handleTaskSelect}
             removeTask={handleRemoveTask}
-            
+            updateCheck={handleUpdateCheck}
           />
         </li>
       })}

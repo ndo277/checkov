@@ -4,6 +4,7 @@ function TaskItem(props) {
 
   const handleXClick = () => {
     let taskId = props.task.id;
+
     // update parent state in parallel with redux state for filtering
     props.removeTask(taskId);
     props.deleteTask(taskId);
@@ -11,6 +12,9 @@ function TaskItem(props) {
 
   const handleCheckTask = () => {
     const newTaskData = Object.assign({}, props.task, { checked: !props.task.checked });
+
+    // update parent state in parallel with redux state for filtering
+    props.updateCheck(newTaskData);
     props.editTask(newTaskData);
   };
 
