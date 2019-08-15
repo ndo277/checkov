@@ -45,3 +45,13 @@ export const editTask = (task) => (dispatch => {
   return TaskApiUtil.editTask(task).then(
     task => dispatch(receiveTask(task)));
 });
+
+export const updateTasks = (tasks) => (dispatch => {
+  // normalize state
+  let taskObj = {};
+  tasks.forEach(task => {
+    taskObj[task.id] = task;
+  });
+
+  dispatch(receiveTasks(taskObj));
+});

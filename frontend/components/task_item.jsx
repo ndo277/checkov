@@ -3,11 +3,18 @@ import React from 'react';
 function TaskItem(props) {
 
   const handleXClick = () => {
-    props.deleteTask(props.task.id);
+    let taskId = props.task.id;
+
+    // update parent state in parallel with redux state for filtering
+    props.removeTask(taskId);
+    props.deleteTask(taskId);
   };
 
   const handleCheckTask = () => {
     const newTaskData = Object.assign({}, props.task, { checked: !props.task.checked });
+
+    // update parent state in parallel with redux state for filtering
+    props.updateCheck(newTaskData);
     props.editTask(newTaskData);
   };
 
@@ -18,12 +25,12 @@ function TaskItem(props) {
 
   return(
    <div className="task-item">
-      <div className="task-mark" onClick={handleSelectTask}>
+      <div className="task-mark" >
         <input type="checkbox" checked={props.task.checked} onChange={handleCheckTask} />
-        <div>
-          {props.task.body}
+        <div className="task-body" onClick={handleSelectTask}>
+            {props.task.body}
         </div>
-     </div>
+      </div>
       
       <button onClick={handleXClick} className="trash-button">X</button>
    </div>

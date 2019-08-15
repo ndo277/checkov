@@ -5,14 +5,51 @@ import {NavLink} from 'react-router-dom';
 
 function Main(props) {
 
-  useEffect(() => {
-    props.fetchTasks();
-  }, []);
-
   const [task, setTask] = useState("");
   const [selectedTask, setSelectedTask] = useState("");
   const [selectedTaskBody, setSelectedTaskBody] = useState("");
   const [step, setStep] = useState("");
+  const [prefilteredTasks, setPrefilteredTasks] = useState({});
+  const [filtering, setFiltering] = useState(false);
+
+  useEffect(() => {
+    props.fetchTasks().then(res => {
+      setPrefilteredTasks(res.tasks);
+    });
+  }, []);
+
+  const handleSearchInput = (e) => {
+    // restrict some things while filtering
+    setSelectedTask("");
+    if (e.currentTarget.value !== ""){
+      setFiltering(true);
+    } else {
+      setFiltering(false);
+    }
+    
+    // filter
+    let searchBody = e.currentTarget.value.toLowerCase();
+    let filteredTasks = Object.values(prefilteredTasks).filter(task => {
+      let taskBody = task.body.toLowerCase();
+      return (
+        taskBody.indexOf(searchBody) !== -1
+      );
+    });
+
+    props.updateTasks(filteredTasks);
+  };
+
+  const handleRemoveTask = (taskId) => {
+    let nextPrefilteredTasks = Object.assign({}, prefilteredTasks);
+    delete nextPrefilteredTasks[taskId];
+    setPrefilteredTasks(nextPrefilteredTasks);
+  };
+
+  const handleUpdateCheck = (updatedTask) => {
+    let revisedTask = {[updatedTask.id]: updatedTask};
+    let nextPrefilteredTasks = Object.assign({}, prefilteredTasks, revisedTask);
+    setPrefilteredTasks(nextPrefilteredTasks);
+  };
 
   const handleLogOut = () => {
     props.logout();
@@ -85,10 +122,47 @@ function Main(props) {
     });
   };
 
+  const TasksHeaderDefault = (
+    <div className="tasks-header">
+      <h1>TASKS</h1>
+
+      <form onSubmit={handleTaskSubmit}>
+        <input
+          type="text"
+          onChange={handleTaskInput}
+          value={task}
+          placeholder="Add task"
+          className="input-field"
+        />
+
+        <input type="submit" value="+" className="button" />
+      </form>
+
+
+      <div className="task-buttons">
+        <button onClick={handleDeleteTasksClick} className="del-button">
+          Delete Checked Tasks
+          </button>
+
+        <button onClick={handleCheckAllClick} className="button">
+          Check Off All Tasks
+          </button>
+      </div>
+    </div>
+  )
+
+  const TasksHeaderFiltering = (
+    <div className="tasks-header">
+      <h1>Searching...</h1>
+    </div>
+  )
+
   const TasksList = (
     <section className="tasks-section">
+      {!filtering && TasksHeaderDefault}
+      {filtering && TasksHeaderFiltering}
 
-      <div className="tasks-header">
+      {/* <div className="tasks-header">
         <h1>TASKS</h1>
 
         <form onSubmit={handleTaskSubmit}>
@@ -107,13 +181,13 @@ function Main(props) {
         <div className="task-buttons">
           <button onClick={handleDeleteTasksClick} className="del-button">
             Delete Checked Tasks
-              </button>
+          </button>
 
           <button onClick={handleCheckAllClick} className="button">
             Check Off All Tasks
-              </button>
+          </button>
         </div>
-      </div>
+      </div> */}
 
       {props.tasks.map(task => {
         return <li key={task.id} className="task-list">
@@ -122,6 +196,8 @@ function Main(props) {
             deleteTask={props.deleteTask}
             editTask={props.editTask}
             onSelectTask={handleTaskSelect}
+            removeTask={handleRemoveTask}
+            updateCheck={handleUpdateCheck}
           />
         </li>
       })}
@@ -162,15 +238,15 @@ function Main(props) {
         </li>
       })}
 
-      
-
-
     </section>
   )
 
   const Header = (
     <div className="header">
       <h2 className="logo">CHECKOV</h2>
+
+      <input type="text" onChange={handleSearchInput} className="search-bar" placeholder="Search Tasks..."/>
+
       <button onClick={handleLogOut} className="logout-button">Log out {props.currentUser.username}</button>
     </div>
   )
