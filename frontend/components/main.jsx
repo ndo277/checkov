@@ -10,6 +10,7 @@ function Main(props) {
   const [selectedTaskBody, setSelectedTaskBody] = useState("");
   const [step, setStep] = useState("");
   const [prefilteredTasks, setPrefilteredTasks] = useState({});
+  const [filtering, setFiltering] = useState(false);
 
   useEffect(() => {
     props.fetchTasks().then(res => {
@@ -18,7 +19,15 @@ function Main(props) {
   }, []);
 
   const handleSearchInput = (e) => {
+    // restrict some things while filtering
     setSelectedTask("");
+    if (e.currentTarget.value !== ""){
+      setFiltering(true);
+    } else {
+      setFiltering(false);
+    }
+    
+    // filter
     let searchBody = e.currentTarget.value.toLowerCase();
     let filteredTasks = Object.values(prefilteredTasks).filter(task => {
       let taskBody = task.body.toLowerCase();
@@ -113,10 +122,47 @@ function Main(props) {
     });
   };
 
+  const TasksHeaderDefault = (
+    <div className="tasks-header">
+      <h1>TASKS</h1>
+
+      <form onSubmit={handleTaskSubmit}>
+        <input
+          type="text"
+          onChange={handleTaskInput}
+          value={task}
+          placeholder="Add task"
+          className="input-field"
+        />
+
+        <input type="submit" value="+" className="button" />
+      </form>
+
+
+      <div className="task-buttons">
+        <button onClick={handleDeleteTasksClick} className="del-button">
+          Delete Checked Tasks
+          </button>
+
+        <button onClick={handleCheckAllClick} className="button">
+          Check Off All Tasks
+          </button>
+      </div>
+    </div>
+  )
+
+  const TasksHeaderFiltering = (
+    <div className="tasks-header">
+      <h1>Searching...</h1>
+    </div>
+  )
+
   const TasksList = (
     <section className="tasks-section">
+      {!filtering && TasksHeaderDefault}
+      {filtering && TasksHeaderFiltering}
 
-      <div className="tasks-header">
+      {/* <div className="tasks-header">
         <h1>TASKS</h1>
 
         <form onSubmit={handleTaskSubmit}>
@@ -141,7 +187,7 @@ function Main(props) {
             Check Off All Tasks
           </button>
         </div>
-      </div>
+      </div> */}
 
       {props.tasks.map(task => {
         return <li key={task.id} className="task-list">
