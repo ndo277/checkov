@@ -1,24 +1,5 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[Checkov Live Demo] (http://checkov-1.herokuapp.com/)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Checkov is a web application where users can create an account to keep track of all their tasks. Users can also add steps to any task. Tasks and steps can be edited and deleted. Users can keep track of completed tasks and steps by checking them off. Users can filter completed or incomplete tasks with the navbar, or can search for indiviual tasks with the seach bar. 
