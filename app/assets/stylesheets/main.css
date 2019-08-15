@@ -156,7 +156,9 @@ section {
 .input-field {
   height: 25px;
   width: 200px;
-  padding: 2px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid gray;
 }
 
 .button {
@@ -228,8 +230,21 @@ section {
 
 .search-bar {
   height: 20px;
-  width: 30%;
+  width: 25%;
   margin-right: 50px;
+  padding-left: 5px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 119, 255, 0.897);
+}
+
+.search-message {
+  display: flex;
+  flex-direction: column;
+}
+
+.no-results {
+  opacity: 0.7;
+  font-size: 25px;
 }
 
 

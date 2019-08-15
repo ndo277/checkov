@@ -11,12 +11,24 @@ function Main(props) {
   const [step, setStep] = useState("");
   const [prefilteredTasks, setPrefilteredTasks] = useState({});
   const [filtering, setFiltering] = useState(false);
+  const [anyResults, setAnyResults] = useState(true);
 
   useEffect(() => {
     props.fetchTasks().then(res => {
       setPrefilteredTasks(res.tasks);
     });
   }, []);
+
+  // Detect no search results
+  useEffect(() => {
+    let tasksAmount = Object.values(props.tasks).length;
+  
+    if (tasksAmount === 0) {
+      setAnyResults(false);
+    } else {
+      setAnyResults(true);
+      }
+  });
 
   const handleSearchInput = (e) => {
     // restrict some things while filtering
@@ -153,7 +165,11 @@ function Main(props) {
 
   const TasksHeaderFiltering = (
     <div className="tasks-header">
-      <h1>Searching...</h1>
+      <div className="search-message">
+        <h1>Searching...</h1>
+        <div className="no-results">{!anyResults && "No tasks found."}</div>
+      </div>
+      
     </div>
   )
 
@@ -161,33 +177,6 @@ function Main(props) {
     <section className="tasks-section">
       {!filtering && TasksHeaderDefault}
       {filtering && TasksHeaderFiltering}
-
-      {/* <div className="tasks-header">
-        <h1>TASKS</h1>
-
-        <form onSubmit={handleTaskSubmit}>
-          <input
-            type="text"
-            onChange={handleTaskInput}
-            value={task}
-            placeholder="Add task"
-            className="input-field"
-          />
-
-          <input type="submit" value="+" className="button" />
-        </form>
-
-
-        <div className="task-buttons">
-          <button onClick={handleDeleteTasksClick} className="del-button">
-            Delete Checked Tasks
-          </button>
-
-          <button onClick={handleCheckAllClick} className="button">
-            Check Off All Tasks
-          </button>
-        </div>
-      </div> */}
 
       {props.tasks.map(task => {
         return <li key={task.id} className="task-list">
