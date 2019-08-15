@@ -1,11 +1,13 @@
 import { connect } from 'react-redux';
 import Main from './main';
 import { logout } from '../actions/session_actions';
-import { fetchTasks, createTask, deleteTask, editTask} from '../actions/task_actions';
+import { fetchTasks, createTask, deleteTask, editTask, receiveTasks} from '../actions/task_actions';
 import { fetchSteps, createStep, deleteStep, editStep } from '../actions/step_actions';
 
 const mapStateToProps = (state) => {
   const currentUser = state.entities.users[state.session.id];
+
+  const stateTasks = state.entities.tasks;
 
   const tasks = Object.values(state.entities.tasks);
   const checkedTasks = tasks.filter(task => {
@@ -14,7 +16,7 @@ const mapStateToProps = (state) => {
 
   const steps = Object.values(state.entities.steps);
 
-  return {currentUser, tasks, checkedTasks, steps};
+  return {currentUser, tasks, checkedTasks, steps, stateTasks};
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -26,7 +28,8 @@ const mapDispatchToProps = (dispatch) => ({
   fetchSteps: (taskId) => dispatch(fetchSteps(taskId)),
   createStep: (data) => dispatch(createStep(data)),
   deleteStep: (id) => dispatch(deleteStep(id)),
-  editStep: (step) => dispatch(editStep(step))
+  editStep: (step) => dispatch(editStep(step)),
+  // receiveTasks: (tasks) => dispatch(receiveTasks(tasks))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

@@ -18,12 +18,12 @@ function TaskItem(props) {
 
   return(
    <div className="task-item">
-      <div className="task-mark" onClick={handleSelectTask}>
+      <div className="task-mark" >
         <input type="checkbox" checked={props.task.checked} onChange={handleCheckTask} />
-        <div>
-          {props.task.body}
+        <div className="task-body" onClick={handleSelectTask}>
+            {props.task.body}
         </div>
-     </div>
+      </div>
       
       <button onClick={handleXClick} className="trash-button">X</button>
    </div>

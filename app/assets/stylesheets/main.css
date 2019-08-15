@@ -71,11 +71,19 @@ section {
 .task-mark {
   display: flex;
   justify-content: flex-start;
+  flex-direction: row;
   align-items: center;
   cursor: pointer;
   width: 100%;
   height: 100%;
   overflow: scroll;
+}
+
+.task-body {
+  width: 100%;
+  height: 100%;
+  padding-top: 20px;
+  padding-left: 5px;
 }
 
 
@@ -217,6 +225,8 @@ section {
   font-weight: bold;
   width: 300px;
 }
+
+
 
 
 
