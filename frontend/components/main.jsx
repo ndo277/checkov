@@ -5,14 +5,21 @@ import {NavLink} from 'react-router-dom';
 
 function Main(props) {
 
-  useEffect(() => {
-    props.fetchTasks();
-  }, []);
-
+  const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState("");
   const [selectedTask, setSelectedTask] = useState("");
   const [selectedTaskBody, setSelectedTaskBody] = useState("");
   const [step, setStep] = useState("");
+  // const [isSearching, setIsSearching]  = useState(false);
+  // const [filteredTasks, setFilteredTasks]  = useState([]);
+
+  useEffect(() => {
+    props.fetchTasks().then((res) => {
+      let tasks = Object.values(res.tasks);
+      setTasks(tasks);
+      // console.log("******", tasks);
+    });
+  }, []);
 
   const handleLogOut = () => {
     props.logout();
@@ -85,6 +92,19 @@ function Main(props) {
     });
   };
 
+  const handleSearchInput = (e) => {
+    // setIsSearching(true);
+    let searchBody = e.currentTarget.value.toLowerCase();
+    let filteredTasks = props.tasks.filter(task => {
+      let taskBody = task.body.toLowerCase();
+      return (
+        taskBody.indexOf(searchBody) !== -1
+      );
+    });
+
+    setTasks(filteredTasks);
+  };
+
   const TasksList = (
     <section className="tasks-section">
 
@@ -115,7 +135,7 @@ function Main(props) {
         </div>
       </div>
 
-      {props.tasks.map(task => {
+      {tasks.map(task => {
         return <li key={task.id} className="task-list">
           <TaskItem
             task={task}
@@ -127,6 +147,49 @@ function Main(props) {
       })}
     </section>
   )
+
+  // const FilteredTasksList = (
+  //   <section className="tasks-section">
+
+      {/* <div className="tasks-header">
+        <h1>TASKS</h1>
+
+        <form onSubmit={handleTaskSubmit}>
+          <input
+            type="text"
+            onChange={handleTaskInput}
+            value={task}
+            placeholder="Add task"
+            className="input-field"
+          />
+
+          <input type="submit" value="+" className="button" />
+        </form>
+
+
+        <div className="task-buttons">
+          <button onClick={handleDeleteTasksClick} className="del-button">
+            Delete Checked Tasks
+              </button>
+
+          <button onClick={handleCheckAllClick} className="button">
+            Check Off All Tasks
+              </button>
+        </div>
+      </div> */}
+
+      {/* {filteredTasks.map(task => {
+        return <li key={task.id} className="task-list">
+          <TaskItem
+            task={task}
+            deleteTask={props.deleteTask}
+            editTask={props.editTask}
+            onSelectTask={handleTaskSelect}
+          />
+        </li>
+      })}
+    </section>
+  ) */}
 
   const TaskSidebar = (
     <section className="task-sidebar" >
@@ -171,6 +234,11 @@ function Main(props) {
   const Header = (
     <div className="header">
       <h2 className="logo">CHECKOV</h2>
+
+      <form >
+        <input type="text" onChange={handleSearchInput}/>
+      </form>
+
       <button onClick={handleLogOut} className="logout-button">Log out {props.currentUser.username}</button>
     </div>
   )
@@ -190,6 +258,8 @@ function Main(props) {
           </NavLink>
     </section>
   )
+  
+  if (!tasks) return null;
 
   return(
     <div>
@@ -197,6 +267,8 @@ function Main(props) {
       <div className="sections">
         {NavLinksBar}
         {TasksList}
+        {/* {!isSearching && TasksList} */}
+        {/* {isSearching && FilteredTasksList} */}
         {selectedTask && TaskSidebar}
       </div> 
     </div> 
