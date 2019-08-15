@@ -9,9 +9,13 @@ function Main(props) {
   const [selectedTask, setSelectedTask] = useState("");
   const [selectedTaskBody, setSelectedTaskBody] = useState("");
   const [step, setStep] = useState("");
+  const [prefilteredTasks, setPrefilteredTasks] = useState("");
 
   useEffect(() => {
-    props.fetchTasks();
+    props.fetchTasks().then(res => {
+      let unfilteredTasks = Object.values(res.tasks);
+      setPrefilteredTasks(unfilteredTasks);
+    });
   }, []);
 
   const handleLogOut = () => {
@@ -87,13 +91,14 @@ function Main(props) {
 
   const handleSearchInput = (e) => {
     let searchBody = e.currentTarget.value.toLowerCase();
-    let filteredTasks = props.tasks.filter(task => {
+    let filteredTasks = prefilteredTasks.filter(task => {
       let taskBody = task.body.toLowerCase();
       return (
         taskBody.indexOf(searchBody) !== -1
       );
     });
 
+    props.updateTasks(filteredTasks);
   };
 
   const TasksList = (

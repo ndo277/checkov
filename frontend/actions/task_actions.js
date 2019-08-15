@@ -45,3 +45,7 @@ export const editTask = (task) => (dispatch => {
   return TaskApiUtil.editTask(task).then(
     task => dispatch(receiveTask(task)));
 });
+
+export const updateTasks = (tasks) => (dispatch => {
+  dispatch(receiveTasks(tasks));
+});
