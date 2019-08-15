@@ -162,33 +162,6 @@ function Main(props) {
       {!filtering && TasksHeaderDefault}
       {filtering && TasksHeaderFiltering}
 
-      {/* <div className="tasks-header">
-        <h1>TASKS</h1>
-
-        <form onSubmit={handleTaskSubmit}>
-          <input
-            type="text"
-            onChange={handleTaskInput}
-            value={task}
-            placeholder="Add task"
-            className="input-field"
-          />
-
-          <input type="submit" value="+" className="button" />
-        </form>
-
-
-        <div className="task-buttons">
-          <button onClick={handleDeleteTasksClick} className="del-button">
-            Delete Checked Tasks
-          </button>
-
-          <button onClick={handleCheckAllClick} className="button">
-            Check Off All Tasks
-          </button>
-        </div>
-      </div> */}
-
       {props.tasks.map(task => {
         return <li key={task.id} className="task-list">
           <TaskItem
