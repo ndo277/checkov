@@ -6,18 +6,34 @@ function Splash(){
   const [isLoginForm, setForm] = useState(false);
 
   return(
-    <div>
-      <h1>CHECKOV</h1>
-      <h1>Set your goals and check 'em off.</h1>
+    <div className="splash">
+      <br/><br/>
+      <div className="title">
+        CHECKO <img src="/images/checkmark.png" alt="V" className="checkpic"/>
+      </div>
+      <br/>
+      <div className="slogan">
+        Track your tasks and check 'em off.
+      </div>
+      <br/><br/><br/> 
+      
+      <div className="splash-bottom">
+        <div>
+          <button onClick={() => setForm(false)} className="form-tab">
+            SIGN UP
+          </button >
 
-      <button onClick={() => setForm(false)} className="form-tab">
-        SIGN UP
-      </button >
-      <button onClick={() => setForm(true)} className="form-tab">
-        LOG IN
-      </button>
-      {!isLoginForm && <SignUpFormContainer />}
-      {isLoginForm && <LogInFormContainer />}
+          <button onClick={() => setForm(true)} className="form-tab">
+            LOG IN
+          </button>
+          {!isLoginForm && <SignUpFormContainer />}
+          {isLoginForm && <LogInFormContainer />}
+        </div>
+       
+
+        <img src="/images/sample.png" alt="sample" className="sample"/>
+      </div>
+      
     </div>
   )
 }

@@ -29,7 +29,7 @@ function SessionForm(props){
   }
 
   return(
-    <div>
+    <div >
       <form onSubmit={handleSubmit} className="session-form">
         <input type="text" 
                placeholder="Username"
