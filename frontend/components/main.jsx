@@ -90,6 +90,7 @@ function Main(props) {
   };
 
   const handleSearchInput = (e) => {
+    setSelectedTask("");
     let searchBody = e.currentTarget.value.toLowerCase();
     let filteredTasks = prefilteredTasks.filter(task => {
       let taskBody = task.body.toLowerCase();
