@@ -96,6 +96,7 @@ section {
 }
 
 .navlinks-sidebar {
+  display: none;
   width: 20%;
   display: flex;
   flex-direction: column;
@@ -141,9 +142,15 @@ section {
 
 .tasks-header {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
+}
+
+@media only screen and (min-width: 1000px) {
+  .tasks-header {
+    flex-direction: row;
+  }
 }
 
 .task-buttons {
