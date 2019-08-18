@@ -110,7 +110,8 @@ function Main(props) {
     e.preventDefault();
     const taskData = Object.assign({}, selectedTask, { body: selectedTaskBody });
     props.editTask(taskData).then(() => {
-      updateTasksState();
+      let newTasks = Object.assign({}, prefilteredTasks, {[taskData.id]: taskData});
+      setPrefilteredTasks(newTasks);
     });
   };
 

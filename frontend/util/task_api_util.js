@@ -6,6 +6,14 @@ export const fetchTasks = () => {
   });
 };
 
+export const fetchTask = (id) => {
+  return $.ajax({
+    url: `api/tasks/${id}`,
+    method: 'GET',
+    error: (err) => console.log(err)
+  });
+};
+
 export const createTask = (data) => {
   return $.ajax({
     url: `api/tasks`,
