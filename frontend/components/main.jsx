@@ -55,26 +55,10 @@ function Main(props) {
     props.updateTasks(filteredTasks);
   };
 
-  const handleRemoveTasks = (taskId) => {
-    updateTasksState().then(() => {
-      let nextPrefilteredTasks = Object.assign({}, prefilteredTasks);
-      delete nextPrefilteredTasks[taskId];
-      setPrefilteredTasks(nextPrefilteredTasks);
-    });
-  };
-
   const removeTask = (taskId) => {
     let nextPrefilteredTasks = Object.assign({}, prefilteredTasks);
     delete nextPrefilteredTasks[taskId];
     setPrefilteredTasks(nextPrefilteredTasks);
-  };
-
-  const handleUpdateChecks = (updatedTask) => {
-    updateTasksState().then(() => {
-      let revisedTask = { [updatedTask.id]: updatedTask };
-      let nextPrefilteredTasks = Object.assign({}, prefilteredTasks, revisedTask);
-      setPrefilteredTasks(nextPrefilteredTasks);
-    });
   };
 
   const updateCheck = (updatedTask) => {
@@ -90,9 +74,10 @@ function Main(props) {
   const handleTaskSubmit = (e) => {
     e.preventDefault();
     const taskData = {body: task};
-    props.createTask(taskData).then(() => {
+    props.createTask(taskData).then((res) => {
       setTask("");
-      updateTasksState();
+      let nextPrefilteredTasks = Object.assign({}, prefilteredTasks, {[res.task.id]: res.task});
+      setPrefilteredTasks(nextPrefilteredTasks);
     });
   };
 
@@ -137,13 +122,28 @@ function Main(props) {
     }
   };
 
+  const handleRemoveTasks = (taskId) => {
+    updateTasksState().then(() => {
+      let nextPrefilteredTasks = Object.assign({}, prefilteredTasks);
+      delete nextPrefilteredTasks[taskId];
+      setPrefilteredTasks(nextPrefilteredTasks);
+    });
+  };
+
   const handleCheckAllClick = () => {
     props.tasks.forEach(task => {
       const newTaskData = Object.assign({}, task, { checked: true });
       props.editTask(newTaskData).then(() => {
-        handleUpdateChecks(newTaskData);
+        handleUpdateCheck(newTaskData);
       });
     });
+  };
+
+  const handleUpdateCheck = (updatedTask) => {
+    // props.fetchTask(updatedTask.id);
+    let revisedTask = { [updatedTask.id]: updatedTask };
+    let nextPrefilteredTasks = Object.assign({}, prefilteredTasks, revisedTask);
+    setPrefilteredTasks(nextPrefilteredTasks);
   };
 
   const handleDeleteStepsClick = () => {
