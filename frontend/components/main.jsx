@@ -285,6 +285,7 @@ function Main(props) {
       <NavLink to="/unchecked" className="navlink">
         <div className="symbol">&#9744;</div> Unchecked
           </NavLink>
+
     </section>
   )
 
