@@ -109,25 +109,24 @@ function Main(props) {
       props.checkedTasks.forEach(task => {
         let taskId = task.id;
         props.deleteTask(taskId).then(() => {
-          handleRemoveTasks(taskId);
+          handleRemoveTask(taskId);
         });
       });
     } else {
       props.tasks.forEach(task => {
         let taskId = task.id;
         props.deleteTask(taskId).then(() => {
-          handleRemoveTasks(taskId);
+          handleRemoveTask(taskId);
         });
       });
     }
   };
 
-  const handleRemoveTasks = (taskId) => {
-    updateTasksState().then(() => {
+  const handleRemoveTask = (taskId) => {
+      updateTasksState();
       let nextPrefilteredTasks = Object.assign({}, prefilteredTasks);
       delete nextPrefilteredTasks[taskId];
       setPrefilteredTasks(nextPrefilteredTasks);
-    });
   };
 
   const handleCheckAllClick = () => {
@@ -140,10 +139,10 @@ function Main(props) {
   };
 
   const handleUpdateCheck = (updatedTask) => {
-    // props.fetchTask(updatedTask.id);
-    let revisedTask = { [updatedTask.id]: updatedTask };
-    let nextPrefilteredTasks = Object.assign({}, prefilteredTasks, revisedTask);
-    setPrefilteredTasks(nextPrefilteredTasks);
+      updateTasksState();
+      let revisedTask = { [updatedTask.id]: updatedTask };
+      let nextPrefilteredTasks = Object.assign({}, prefilteredTasks, revisedTask);
+      setPrefilteredTasks(nextPrefilteredTasks);
   };
 
   const handleDeleteStepsClick = () => {
