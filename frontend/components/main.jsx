@@ -266,7 +266,7 @@ function Main(props) {
     <div className="header">
       <h2 className="logo">CHECKOV</h2>
 
-      <input type="text" onChange={handleSearchInput} className="search-bar" placeholder="&#x1F50E; Search Tasks..."/>
+      <input type="search" onChange={handleSearchInput} className="search-bar" placeholder="&#x1F50E; Search Tasks..."/>
 
       <button onClick={handleLogOut} className="logout-button">Log out {props.currentUser.username}</button>
     </div>
@@ -275,15 +275,15 @@ function Main(props) {
   const NavLinksBar = (
     <section className="navlinks-sidebar">
       <NavLink to="/all" className="navlink" activeClassName="active">
-        All
+        <div className="symbol-star">&#9734;</div>	 All
           </NavLink>
 
       <NavLink to="/checked" className="navlink">
-        Checked
-          </NavLink>
+        <div className="symbol">&#9745;</div> Checked     
+      </NavLink>
 
       <NavLink to="/unchecked" className="navlink">
-        Unchecked
+        <div className="symbol">&#9744;</div> Unchecked
           </NavLink>
     </section>
   )
