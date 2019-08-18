@@ -69,6 +69,10 @@
   color: black;
 }
 
+.auth-button:hover {
+  background-color:#efefef;
+}
+
 .session-errors {
   color: #ed4956;
   font-size: 14px;
@@ -92,4 +96,8 @@
   outline: none;
   margin-left: 20px;
   color: white;
+}
+
+.form-tab:hover {
+  color: #efefef;
 }
