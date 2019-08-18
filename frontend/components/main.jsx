@@ -14,9 +14,7 @@ function Main(props) {
   const [anyResults, setAnyResults] = useState(true);
 
   useEffect(() => {
-    props.fetchTasks().then(res => {
-      setPrefilteredTasks(res.tasks);
-    });
+    updateTasksState();
   }, []);
 
   // Detect no search results
@@ -29,6 +27,12 @@ function Main(props) {
       setAnyResults(true);
       }
   });
+
+  const updateTasksState = () => {
+    props.fetchTasks().then(res => {
+      setPrefilteredTasks(res.tasks);
+    });
+  };
 
   const handleSearchInput = (e) => {
     // restrict some things while filtering
@@ -52,15 +56,19 @@ function Main(props) {
   };
 
   const handleRemoveTask = (taskId) => {
-    let nextPrefilteredTasks = Object.assign({}, prefilteredTasks);
-    delete nextPrefilteredTasks[taskId];
-    setPrefilteredTasks(nextPrefilteredTasks);
+    updateTasksState().then(() => {
+      let nextPrefilteredTasks = Object.assign({}, prefilteredTasks);
+      delete nextPrefilteredTasks[taskId];
+      setPrefilteredTasks(nextPrefilteredTasks);
+    });
   };
 
   const handleUpdateCheck = (updatedTask) => {
-    let revisedTask = {[updatedTask.id]: updatedTask};
-    let nextPrefilteredTasks = Object.assign({}, prefilteredTasks, revisedTask);
-    setPrefilteredTasks(nextPrefilteredTasks);
+    updateTasksState().then(() => {
+      let revisedTask = { [updatedTask.id]: updatedTask };
+      let nextPrefilteredTasks = Object.assign({}, prefilteredTasks, revisedTask);
+      setPrefilteredTasks(nextPrefilteredTasks);
+    });
   };
 
   const handleLogOut = () => {
@@ -72,6 +80,7 @@ function Main(props) {
     const taskData = {body: task};
     props.createTask(taskData).then(() => {
       setTask("");
+      updateTasksState();
     });
   };
 
@@ -98,13 +107,28 @@ function Main(props) {
   const handleDeleteTasksClick = () => {
     if (props.checkedTasks){
       props.checkedTasks.forEach(task => {
-        props.deleteTask(task.id);
+        let taskId = task.id;
+        props.deleteTask(taskId).then(() => {
+          handleRemoveTask(taskId);
+        });
       });
     } else {
       props.tasks.forEach(task => {
-        props.deleteTask(task.id);
+        let taskId = task.id;
+        props.deleteTask(taskId).then(() => {
+          handleRemoveTask(taskId);
+        });
       });
     }
+  };
+
+  const handleCheckAllClick = () => {
+    props.tasks.forEach(task => {
+      const newTaskData = Object.assign({}, task, { checked: true });
+      props.editTask(newTaskData).then(() => {
+        handleUpdateCheck(newTaskData);
+      });
+    });
   };
 
   const handleDeleteStepsClick = () => {
@@ -127,12 +151,6 @@ function Main(props) {
     setStep(e.currentTarget.value);
   };
 
-  const handleCheckAllClick = () => {
-    props.tasks.forEach(task => {
-      const newTaskData = Object.assign({}, task, {checked: true});
-      props.editTask(newTaskData);
-    });
-  };
 
   const TasksHeaderDefault = (
     <div className="tasks-header">
