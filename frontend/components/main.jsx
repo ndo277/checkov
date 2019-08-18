@@ -55,7 +55,7 @@ function Main(props) {
     props.updateTasks(filteredTasks);
   };
 
-  const handleRemoveTask = (taskId) => {
+  const handleRemoveTasks = (taskId) => {
     updateTasksState().then(() => {
       let nextPrefilteredTasks = Object.assign({}, prefilteredTasks);
       delete nextPrefilteredTasks[taskId];
@@ -63,12 +63,24 @@ function Main(props) {
     });
   };
 
-  const handleUpdateCheck = (updatedTask) => {
+  const removeTask = (taskId) => {
+    let nextPrefilteredTasks = Object.assign({}, prefilteredTasks);
+    delete nextPrefilteredTasks[taskId];
+    setPrefilteredTasks(nextPrefilteredTasks);
+  };
+
+  const handleUpdateChecks = (updatedTask) => {
     updateTasksState().then(() => {
       let revisedTask = { [updatedTask.id]: updatedTask };
       let nextPrefilteredTasks = Object.assign({}, prefilteredTasks, revisedTask);
       setPrefilteredTasks(nextPrefilteredTasks);
     });
+  };
+
+  const updateCheck = (updatedTask) => {
+    let revisedTask = { [updatedTask.id]: updatedTask };
+    let nextPrefilteredTasks = Object.assign({}, prefilteredTasks, revisedTask);
+    setPrefilteredTasks(nextPrefilteredTasks);
   };
 
   const handleLogOut = () => {
@@ -109,14 +121,14 @@ function Main(props) {
       props.checkedTasks.forEach(task => {
         let taskId = task.id;
         props.deleteTask(taskId).then(() => {
-          handleRemoveTask(taskId);
+          handleRemoveTasks(taskId);
         });
       });
     } else {
       props.tasks.forEach(task => {
         let taskId = task.id;
         props.deleteTask(taskId).then(() => {
-          handleRemoveTask(taskId);
+          handleRemoveTasks(taskId);
         });
       });
     }
@@ -126,7 +138,7 @@ function Main(props) {
     props.tasks.forEach(task => {
       const newTaskData = Object.assign({}, task, { checked: true });
       props.editTask(newTaskData).then(() => {
-        handleUpdateCheck(newTaskData);
+        handleUpdateChecks(newTaskData);
       });
     });
   };
@@ -203,8 +215,8 @@ function Main(props) {
             deleteTask={props.deleteTask}
             editTask={props.editTask}
             onSelectTask={handleTaskSelect}
-            removeTask={handleRemoveTask}
-            updateCheck={handleUpdateCheck}
+            removeTask={removeTask}
+            updateCheck={updateCheck}
           />
         </li>
       })}
