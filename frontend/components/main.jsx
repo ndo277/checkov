@@ -109,7 +109,9 @@ function Main(props) {
   const handleTaskEditSubmit = (e) => {
     e.preventDefault();
     const taskData = Object.assign({}, selectedTask, { body: selectedTaskBody });
-    props.editTask(taskData);
+    props.editTask(taskData).then(() => {
+      updateTasksState();
+    });
   };
 
   const handleTaskEdit = (e) => {
