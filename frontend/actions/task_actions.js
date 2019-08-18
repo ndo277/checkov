@@ -31,6 +31,11 @@ export const fetchTasks = () => (dispatch) => {
     tasks => dispatch(receiveTasks(tasks)));
 };
 
+export const fetchTask = (id) => (dispatch) => {
+  return TaskApiUtil.fetchTasks(id).then(
+    task => dispatch(receiveTask(task)));
+};
+
 export const createTask = (data) => (dispatch) => {
   return TaskApiUtil.createTask(data).then(
     task => dispatch(receiveTask(task)));

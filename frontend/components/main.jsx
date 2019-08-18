@@ -34,6 +34,13 @@ function Main(props) {
     });
   };
 
+  const addTaskToFilter = (id) => {
+    props.fetchTask(id).then((res) => {
+      let newTasks = Object.assign({}, prefilteredTasks, res.task);
+      setPrefilteredTasks(newTasks);
+    });
+  };
+
   const handleSearchInput = (e) => {
     // restrict some things while filtering
     setSelectedTask("");
@@ -110,7 +117,7 @@ function Main(props) {
     e.preventDefault();
     const taskData = Object.assign({}, selectedTask, { body: selectedTaskBody });
     props.editTask(taskData).then(() => {
-      updateTasksState();
+      addTaskToFilter(taskData.id);
     });
   };
 

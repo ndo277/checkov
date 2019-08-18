@@ -2,6 +2,11 @@ class Api::TasksController < ApplicationController
   def index
     @tasks = current_user.tasks
   end
+  
+  def show  
+    @task = Task.find(params[:id])
+    render :show
+  end
 
   def create  
     @task = Task.new(task_params)
