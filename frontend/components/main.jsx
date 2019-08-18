@@ -252,7 +252,7 @@ function Main(props) {
     <div className="header">
       <h2 className="logo">CHECKOV</h2>
 
-      <input type="text" onChange={handleSearchInput} className="search-bar" placeholder="Search Tasks..."/>
+      <input type="text" onChange={handleSearchInput} className="search-bar" placeholder="&#x1F50E; Search Tasks..."/>
 
       <button onClick={handleLogOut} className="logout-button">Log out {props.currentUser.username}</button>
     </div>
