@@ -55,22 +55,6 @@ function Main(props) {
     props.updateTasks(filteredTasks);
   };
 
-  const removeTask = (taskId) => {
-    let nextPrefilteredTasks = Object.assign({}, prefilteredTasks);
-    delete nextPrefilteredTasks[taskId];
-    setPrefilteredTasks(nextPrefilteredTasks);
-  };
-
-  const updateCheck = (updatedTask) => {
-    let revisedTask = { [updatedTask.id]: updatedTask };
-    let nextPrefilteredTasks = Object.assign({}, prefilteredTasks, revisedTask);
-    setPrefilteredTasks(nextPrefilteredTasks);
-  };
-
-  const handleLogOut = () => {
-    props.logout();
-  };
-
   const handleTaskSubmit = (e) => {
     e.preventDefault();
     const taskData = {body: task};
@@ -106,26 +90,24 @@ function Main(props) {
 
   const handleDeleteTasksClick = () => {
     if (props.checkedTasks){
-      props.checkedTasks.forEach(task => {
+      props.checkedTasks.forEach((task) => {
         let taskId = task.id;
-        props.deleteTask(taskId).then(() => {
-          handleRemoveTask(taskId);
-        });
+        props.deleteTask(taskId);
       });
     } else {
-      props.tasks.forEach(task => {
+      props.tasks.forEach((task) => {
         let taskId = task.id;
-        props.deleteTask(taskId).then(() => {
-          handleRemoveTask(taskId);
-        });
+        props.deleteTask(taskId);
       });
     }
+
+    setPrefilteredTasks({});
   };
 
-  const handleRemoveTask = (taskId) => {
-      let nextPrefilteredTasks = Object.assign({}, prefilteredTasks);
-      delete nextPrefilteredTasks[taskId];
-      setPrefilteredTasks(nextPrefilteredTasks);
+  const removeTask = (taskId) => {
+    let nextPrefilteredTasks = Object.assign({}, prefilteredTasks);
+    delete nextPrefilteredTasks[taskId];
+    setPrefilteredTasks(nextPrefilteredTasks);
   };
 
   const handleCheckAllClick = () => {
@@ -135,6 +117,12 @@ function Main(props) {
         updateCheck(res.task);
       });
     });
+  };
+
+  const updateCheck = (updatedTask) => {
+    let revisedTask = { [updatedTask.id]: updatedTask };
+    let nextPrefilteredTasks = Object.assign({}, prefilteredTasks, revisedTask);
+    setPrefilteredTasks(nextPrefilteredTasks);
   };
 
   const handleDeleteStepsClick = () => {
@@ -157,6 +145,9 @@ function Main(props) {
     setStep(e.currentTarget.value);
   };
 
+  const handleLogOut = () => {
+    props.logout();
+  };
 
   const TasksHeaderDefault = (
     <div className="tasks-header">
