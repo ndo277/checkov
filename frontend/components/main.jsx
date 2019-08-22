@@ -28,21 +28,15 @@ function Main(props) {
       }
   });
 
-  const updateTasksState = () => {
-    props.fetchTasks().then(res => {
-      setPrefilteredTasks(res.tasks);
-    });
-  };
-
   const handleSearchInput = (e) => {
     // restrict some things while filtering
     setSelectedTask("");
-    if (e.currentTarget.value !== ""){
+    if (e.currentTarget.value !== "") {
       setFiltering(true);
     } else {
       setFiltering(false);
     }
-    
+
     // filter
     let searchBody = e.currentTarget.value.toLowerCase();
     let filteredTasks = Object.values(prefilteredTasks).filter(task => {
@@ -53,6 +47,12 @@ function Main(props) {
     });
 
     props.updateTasks(filteredTasks);
+  };
+
+  const updateTasksState = () => {
+    props.fetchTasks().then(res => {
+      setPrefilteredTasks(res.tasks);
+    });
   };
 
   const handleTaskSubmit = (e) => {
