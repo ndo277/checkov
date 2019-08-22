@@ -40,6 +40,6 @@ export const signup = (user) => (dispatch) => (
 
 export const logout = () => (dispatch) => {
   return ApiUtil.logout().then(
-    user => dispatch(logoutCurrentUser()),
+    res => dispatch(logoutCurrentUser()),
     err => dispatch(receiveErrors(err.responseJSON)));
 };
