@@ -1,6 +1,6 @@
 import { RECEIVE_TASKS, RECEIVE_TASK, REMOVE_TASK } from '../actions/task_actions';
 
-const tasksReducer = (state = {}, action) => {
+const tasksReducer = (action, state = {}) => {
   Object.freeze(state);
   switch(action.type){
     case RECEIVE_TASKS:
